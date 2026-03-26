@@ -1,0 +1,30 @@
+# macOS
+.DS_Store
+
+# IDE
+.idea/
+*.iml
+
+# Node.js
+node_modules/
+**/node_modules/
+
+# Frontend builds
+frontend/dist/
+frontend/.hbuilderx/
+
+# Java builds
+**/target/
+*.class
+
+# Logs
+*.log
+logs/
+
+# Environment files
+.env
+.env.*
+
+# Accidental local directories
+backend/d:/
+backend/backend/

@@ -1,0 +1,35 @@
+{
+  "pages": [
+    "pages/index/index",
+    "pages/login/index",
+    "pages/orders/list/index",
+    "pages/shop/list/index",
+    "pages/profile/index"
+  ],
+  "window": {
+    "navigationBarTitleText": "边牧寄养"
+  },
+  "tabBar": {
+    "color": "#777777",
+    "selectedColor": "#ff7a45",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/index/index",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/orders/list/index",
+        "text": "订单"
+      },
+      {
+        "pagePath": "pages/shop/list/index",
+        "text": "商城"
+      },
+      {
+        "pagePath": "pages/profile/index",
+        "text": "我的"
+      }
+    ]
+  }
+}

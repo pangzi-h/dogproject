@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:5.7
+    container_name: pet-boarding-mysql
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: root123
+      MYSQL_DATABASE: pet_boarding
+      TZ: Asia/Shanghai
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./docker/mysql-data:/var/lib/mysql
+      - ./sql:/docker-entrypoint-initdb.d
+
+  redis:
+    image: redis:6.2-alpine
+    container_name: pet-boarding-redis
+    restart: unless-stopped
+    command: ["redis-server", "--requirepass", "redis123"]
+    ports:
+      - "6379:6379"
+    volumes:
+      - ./docker/redis-data:/data

@@ -1,0 +1,106 @@
+# Spec Input Schema
+# Contract version: 1.0.0
+# Feature: 001-functional-spec-standard
+# Description: Defines the required input structure for generating a What/Why-oriented
+#              functional specification via the speckit.specify command or a product agent.
+
+version: "1.0.0"
+schema:
+  $schema: "spec-input/v1"
+
+  type: object
+  required:
+    - id
+    - projectName
+    - background
+    - targetUsers
+    - coreFlows
+    - businessGoal
+
+  properties:
+    id:
+      type: string
+      pattern: "^[0-9]{3}-[a-z][a-z0-9-]+$"
+      description: "Feature identifier, matches Git branch name. Example: 001-functional-spec-standard"
+
+    projectName:
+      type: string
+      minLength: 2
+      maxLength: 100
+      description: "Human-readable name of the project or feature being specified."
+
+    background:
+      type: string
+      minLength: 20
+      description: |
+        Business context explaining WHY this feature is needed.
+        Must not contain technical implementation details (no framework, DB, or language names).
+
+    targetUsers:
+      type: array
+      items:
+        type: string
+        minLength: 2
+      minItems: 1
+      description: "List of user roles that interact with this feature. At least one required."
+      examples:
+        - ["产品经理", "前端开发", "测试工程师"]
+
+    coreFlows:
+      type: array
+      items:
+        type: string
+        minLength: 10
+      minItems: 1
+      description: |
+        Core business processes covered by this feature.
+        Each entry describes one end-to-end user journey (not a technical step).
+        If empty, a GapItem MUST be created for missing flow definition.
+      examples:
+        - ["用户提交功能需求描述，系统生成结构化规范文档"]
+
+    businessGoal:
+      type: string
+      minLength: 10
+      description: |
+        Measurable business outcome. Must include a quantifiable indicator
+        (e.g., "减少评审返工率 30%", "规范生成时间 < 3 分钟").
+
+    constraints:
+      type: object
+      required: false
+      properties:
+        technicalConstraints:
+          type: array
+          items:
+            type: string
+          description: "Existing infrastructure or system integration constraints."
+        outOfScope:
+          type: array
+          items:
+            type: string
+          description: "Explicitly excluded from this feature's scope."
+
+# Gap Detection Rules
+# When any required field is absent or does not meet minLength, the system MUST:
+# 1. Create a GapItem with status: Open
+# 2. Still generate a draft spec with the available information
+# 3. Mark affected sections with "⚠️ NEEDS CLARIFICATION: {missingField}"
+gap_detection:
+  trigger_on_missing: ["background", "targetUsers", "coreFlows", "businessGoal"]
+  trigger_on_conflict:
+    - condition: "coreFlows describes technical steps rather than business flows"
+      action: "flag as ambiguous, create GapItem with suggestion to rephrase in user journey terms"
+  output: "GapItem[]"
+
+# Validation Gates (checked before spec generation proceeds to In Review)
+validation_gates:
+  - gate: "no_impl_language"
+    description: "background and coreFlows must not contain: Java, Python, MySQL, Redis, API, REST, HTTP, endpoint"
+    severity: "error"
+  - gate: "quantified_goal"
+    description: "businessGoal must contain at least one numeric value or percentage"
+    severity: "warning"
+  - gate: "min_flows"
+    description: "coreFlows must have at least 1 entry"
+    severity: "error"

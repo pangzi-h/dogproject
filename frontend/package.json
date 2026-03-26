@@ -1,0 +1,14 @@
+{
+  "name": "pet-boarding-frontend",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev:mp-weixin": "echo \"请在 HBuilderX 或 uni-app CLI 工程中执行 dev\"",
+    "lint": "echo \"lint placeholder\""
+  },
+  "dependencies": {
+    "vue": "^2.6.14",
+    "vuex": "^3.6.2",
+    "axios": "^1.7.2"
+  }
+}
