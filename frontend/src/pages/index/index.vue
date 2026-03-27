@@ -1,7 +1,11 @@
 <template>
   <view class="page">
-    <view class="title">边牧寄养</view>
-    <view class="desc">前端框架已初始化</view>
+    <view class="title">
+      边牧寄养
+    </view>
+    <view class="desc">
+      前端框架已初始化
+    </view>
   </view>
 </template>
 
