@@ -3,12 +3,53 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev:mp-weixin": "echo \"请在 HBuilderX 或 uni-app CLI 工程中执行 dev\"",
-    "lint": "echo \"lint placeholder\""
+    "dev:mp-weixin": "cross-env NODE_ENV=development UNI_PLATFORM=mp-weixin vue-cli-service uni-build --watch",
+    "build:mp-weixin": "cross-env NODE_ENV=production UNI_PLATFORM=mp-weixin vue-cli-service uni-build",
+    "dev:h5": "cross-env NODE_ENV=development UNI_PLATFORM=h5 vue-cli-service uni-serve",
+    "build:h5": "cross-env NODE_ENV=production UNI_PLATFORM=h5 vue-cli-service uni-build",
+    "lint": "eslint --ext .js,.vue src"
   },
   "dependencies": {
+    "@babel/runtime": "^7.25.0",
+    "core-js": "^3.38.1",
+    "semver": "^7.6.3",
     "vue": "^2.6.14",
-    "vuex": "^3.6.2",
-    "axios": "^1.7.2"
+    "vuex": "^3.6.2"
+  },
+  "devDependencies": {
+    "@dcloudio/uni-automator": "^2.0.2-4050620241128001",
+    "@dcloudio/uni-cli-i18n": "^2.0.2-4050620241128001",
+    "@dcloudio/uni-cli-shared": "^2.0.2-4050620241128001",
+    "@dcloudio/uni-i18n": "^2.0.2-4050620241128001",
+    "@dcloudio/vue-cli-plugin-hbuilderx": "^2.0.2-4050620241128001",
+    "@dcloudio/vue-cli-plugin-uni": "^2.0.2-4050620241128001",
+    "@dcloudio/uni-mp-weixin": "^2.0.2-4050620241128001",
+    "@dcloudio/uni-template-compiler": "^2.0.2-4050620241128001",
+    "@dcloudio/webpack-uni-mp-loader": "^2.0.2-4050620241128001",
+    "@dcloudio/webpack-uni-pages-loader": "^2.0.2-4050620241128001",
+    "@vue/cli-plugin-babel": "~4.5.19",
+    "@vue/cli-plugin-eslint": "~4.5.19",
+    "@vue/cli-service": "~4.5.19",
+    "babel-eslint": "^10.1.0",
+    "babel-loader": "^8.1.0",
+    "cache-loader": "^4.1.0",
+    "copy-webpack-plugin": "^5.1.2",
+    "css-loader": "^3.5.3",
+    "cross-env": "^7.0.3",
+    "eslint": "^6.8.0",
+    "eslint-plugin-vue": "^6.2.2",
+    "file-loader": "^4.2.0",
+    "html-webpack-plugin": "^3.2.0",
+    "mini-css-extract-plugin": "^0.9.0",
+    "postcss-loader": "^3.0.0",
+    "sass": "^1.77.8",
+    "sass-loader": "^10.5.2",
+    "terser-webpack-plugin": "^1.4.4",
+    "thread-loader": "^3.0.4",
+    "url-loader": "^2.2.0",
+    "vue-loader": "^15.9.2",
+    "vue-style-loader": "^4.1.2",
+    "vue-template-compiler": "^2.6.14",
+    "webpack": "^4.47.0"
   }
 }

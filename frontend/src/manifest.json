@@ -1,0 +1,21 @@
+{
+  "name": "边牧寄养",
+  "appid": "__UNI__PET_BOARDING",
+  "description": "边牧寄养 uni-app 小程序项目",
+  "versionName": "1.0.0",
+  "versionCode": "100",
+  "transformPx": false,
+  "mp-weixin": {
+    "appid": "",
+    "setting": {
+      "urlCheck": false,
+      "es6": true,
+      "postcss": true,
+      "minified": true
+    },
+    "usingComponents": true
+  },
+  "h5": {
+    "title": "边牧寄养"
+  }
+}

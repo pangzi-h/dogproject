@@ -1,9 +1,3 @@
-<template>
-  <view>
-    <slot />
-  </view>
-</template>
-
 <script>
 export default {
   onLaunch() {
