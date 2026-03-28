@@ -18,6 +18,27 @@ description: "Task list template for feature implementation"
 - **[Story]**: Which user story this task belongs to (e.g., US1, US2, US3)
 - Include exact file paths in descriptions
 
+### Strict Checklist Format (REQUIRED)
+
+Every task line MUST follow:
+
+`- [ ] T### [P?] [US?] Description with file path`
+
+Validation rules:
+
+- Must start with `- [ ]`
+- Must include sequential `T###` task ID
+- `[P]` is optional and only for parallel-safe tasks
+- `[USx]` is required for user story phases and omitted for setup/foundational/polish
+- Description must include a concrete file path
+
+Examples:
+
+- `- [ ] T001 Create baseline structure in docs/feature/README.md`
+- `- [ ] T006 [P] Implement schema validator in scripts/validate.sh`
+- `- [ ] T012 [US1] Add acceptance scenarios in specs/001-example/spec.md`
+- `- [ ] T018 [P] [US2] Add contract test in tests/contracts/us2-contract.md`
+
 ## Path Conventions
 
 - **Single project**: `src/`, `tests/` at repository root

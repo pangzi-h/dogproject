@@ -10,6 +10,26 @@
 
 本功能定义了一套 **What/Why 导向的功能规范生成工作流**。产品方提供项目背景和业务目标，AI agent 自动产出七段式结构化规范文档，前后端与测试团队基于该文档进入技术方案设计和质量验证。
 
+## 产物入口与执行顺序
+
+### 关键产物入口
+
+- `specs/{branch}/spec.md`：功能规范主文档（What/Why）
+- `specs/{branch}/plan.md`：实施规划与门禁定义
+- `specs/{branch}/tasks.md`：按用户故事组织的执行任务
+- `specs/{branch}/research.md`：关键技术与流程决策依据
+- `specs/{branch}/data-model.md`：实体与关系定义
+- `specs/{branch}/contracts/spec-input-schema.yaml`：输入契约
+- `specs/{branch}/contracts/spec-output-contract.md`：输出契约
+
+### 推荐执行顺序
+
+1. `/speckit.specify` 生成或更新 `spec.md`
+2. `/speckit.plan` 生成 `plan.md`、`research.md`、`data-model.md`、`contracts/`、`quickstart.md`
+3. `/speckit.tasks` 生成可执行 `tasks.md`
+4. 按 `tasks.md` 从 Setup → Foundational → US1/US2/US3 → Polish 逐项执行
+5. 每个用户故事完成后独立验证，再进入下一故事
+
 ---
 
 ## 前置条件
@@ -42,6 +62,24 @@
 ```
 
 **输出位置**: `specs/{NNN}-{short-name}/spec.md`
+
+### US1 最小输入示例与通过标准
+
+**最小输入示例**
+
+```text
+/speckit.specify 功能规范标准化：团队希望降低需求评审返工，统一需求表达口径。
+目标用户：产品经理、前端开发、测试工程师
+核心流程：输入业务背景与目标后生成结构化规范文档
+业务目标：将评审返工率降低 30%
+```
+
+**US1 通过标准**
+
+- 输出包含固定七段式章节
+- 至少包含 1 个 `Priority: P1` 用户故事
+- 存在 Given-When-Then 验收场景
+- 不包含实现细节词（如 `API`、`Java`、`Vue`）
 
 ---
 

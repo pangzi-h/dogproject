@@ -32,10 +32,25 @@
 *GATE: Must pass before Phase 0 research. Re-check after Phase 1 design.*
 
 - Code Quality Gate: Define lint/format/static-analysis checks and pass criteria.
+  Evidence: [tool output path or report link]
+  Owner: [role]
+  Status: [PASS/FAIL]
 - Testing Gate: Define required unit/integration/regression tests and evidence method.
+  Evidence: [test summary path or CI job]
+  Owner: [role]
+  Status: [PASS/FAIL]
 - UX Consistency Gate: Define UX pattern impact and validation for loading/empty/error/success states.
+  Evidence: [screenshots/doc path]
+  Owner: [role]
+  Status: [PASS/FAIL]
 - Performance Gate: Define measurable budget(s) and verification approach.
+  Evidence: [measurement file/report]
+  Owner: [role]
+  Status: [PASS/FAIL]
 - Traceability Gate: Link planned work to spec requirements and expected validation artifacts.
+  Evidence: [mapping file/table path]
+  Owner: [role]
+  Status: [PASS/FAIL]
 
 ## Project Structure
 

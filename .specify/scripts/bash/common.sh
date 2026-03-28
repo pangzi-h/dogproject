@@ -246,6 +246,26 @@ json_escape() {
 check_file() { [[ -f "$1" ]] && echo "  ✓ $2" || echo "  ✗ $2"; }
 check_dir() { [[ -d "$1" && -n $(ls -A "$1" 2>/dev/null) ]] && echo "  ✓ $2" || echo "  ✗ $2"; }
 
+run_validate_spec_input() {
+    local repo_root=$(get_repo_root)
+    local validator="$repo_root/.specify/scripts/bash/validate-spec-input.sh"
+    if [[ ! -x "$validator" ]]; then
+        echo "ERROR: Input validator not found or not executable: $validator" >&2
+        return 1
+    fi
+    "$validator" "$@"
+}
+
+run_validate_spec_output() {
+    local repo_root=$(get_repo_root)
+    local validator="$repo_root/.specify/scripts/bash/validate-spec-output.sh"
+    if [[ ! -x "$validator" ]]; then
+        echo "ERROR: Output validator not found or not executable: $validator" >&2
+        return 1
+    fi
+    "$validator" "$@"
+}
+
 # Resolve a template name to a file path using the priority stack:
 #   1. .specify/templates/overrides/
 #   2. .specify/presets/<preset-id>/templates/ (sorted by priority from .registry)

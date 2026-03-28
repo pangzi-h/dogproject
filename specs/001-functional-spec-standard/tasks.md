@@ -8,10 +8,10 @@
 
 **Purpose**: 准备规范生成能力所需的模板与目录基线
 
-- [ ] T001 对齐功能目录文档索引，在 specs/001-functional-spec-standard/quickstart.md 中补充产物入口与执行顺序
-- [ ] T002 在 .specify/templates/spec-template.md 增加七段式章节锚点与 What/Why 编写提示
-- [ ] T003 [P] 在 .specify/templates/plan-template.md 增加七原则门禁占位与证据填写提示
-- [ ] T004 [P] 在 .specify/templates/tasks-template.md 固化任务清单格式规则（Txxx、[P]、[USx]、文件路径）
+- [x] T001 对齐功能目录文档索引，在 specs/001-functional-spec-standard/quickstart.md 中补充产物入口与执行顺序
+- [x] T002 在 .specify/templates/spec-template.md 增加七段式章节锚点与 What/Why 编写提示
+- [x] T003 [P] 在 .specify/templates/plan-template.md 增加七原则门禁占位与证据填写提示
+- [x] T004 [P] 在 .specify/templates/tasks-template.md 固化任务清单格式规则（Txxx、[P]、[USx]、文件路径）
 
 ---
 
@@ -20,13 +20,13 @@
 **Purpose**: 建立所有用户故事共享的输入/输出契约与自动校验骨架  
 **⚠️ CRITICAL**: 本阶段完成前不得开始任一用户故事实现
 
-- [ ] T005 创建输入契约版本声明与字段约束于 specs/001-functional-spec-standard/contracts/spec-input-schema.yaml
-- [ ] T006 创建输出契约章节与完整性门禁于 specs/001-functional-spec-standard/contracts/spec-output-contract.md
-- [ ] T007 [P] 新增输入契约校验脚本于 .specify/scripts/bash/validate-spec-input.sh（读取 spec-input-schema.yaml 规则）
-- [ ] T008 [P] 新增输出结构校验脚本于 .specify/scripts/bash/validate-spec-output.sh（检查七段式与编号约束）
-- [ ] T009 在 .specify/scripts/bash/check-prerequisites.sh 增加 tasks 流程所需文档存在性检查（research/data-model/contracts/quickstart）
-- [ ] T010 [P] 新增契约校验样例（通过/失败）到 specs/001-functional-spec-standard/contracts/examples.md
-- [ ] T011 在 .specify/scripts/bash/common.sh 注册契约校验脚本的公共调用函数
+- [x] T005 创建输入契约版本声明与字段约束于 specs/001-functional-spec-standard/contracts/spec-input-schema.yaml
+- [x] T006 创建输出契约章节与完整性门禁于 specs/001-functional-spec-standard/contracts/spec-output-contract.md
+- [x] T007 [P] 新增输入契约校验脚本于 .specify/scripts/bash/validate-spec-input.sh（读取 spec-input-schema.yaml 规则）
+- [x] T008 [P] 新增输出结构校验脚本于 .specify/scripts/bash/validate-spec-output.sh（检查七段式与编号约束）
+- [x] T009 在 .specify/scripts/bash/check-prerequisites.sh 增加 tasks 流程所需文档存在性检查（research/data-model/contracts/quickstart）
+- [x] T010 [P] 新增契约校验样例（通过/失败）到 specs/001-functional-spec-standard/contracts/examples.md
+- [x] T011 在 .specify/scripts/bash/common.sh 注册契约校验脚本的公共调用函数
 
 **Checkpoint**: Foundation ready - 用户故事实现可并行启动
 
@@ -39,18 +39,18 @@
 
 ### Tests for User Story 1（REQUIRED）
 
-- [ ] T012 [P] [US1] 添加七段式结构回归测试用例到 tests/specs/us1-structure-pass.md
-- [ ] T013 [P] [US1] 添加技术词禁用回归测试用例到 tests/specs/us1-no-impl-terms.md
-- [ ] T014 [US1] 在 tests/specs/run-us1-checks.sh 编排 US1 用例执行并输出结果摘要
+- [x] T012 [P] [US1] 添加七段式结构回归测试用例到 tests/specs/us1-structure-pass.md
+- [x] T013 [P] [US1] 添加技术词禁用回归测试用例到 tests/specs/us1-no-impl-terms.md
+- [x] T014 [US1] 在 tests/specs/run-us1-checks.sh 编排 US1 用例执行并输出结果摘要
 
 ### Implementation for User Story 1
 
-- [ ] T015 [US1] 在 .github/prompts/speckit.specify.prompt.md 增加最小输入映射规则（项目名/背景/目标用户/核心流程）
-- [ ] T016 [US1] 在 .specify/templates/spec-template.md 实现 User Story 与 Acceptance Scenarios 的固定输出骨架
-- [ ] T017 [US1] 在 .specify/templates/spec-template.md 实现 Functional Requirements 与 Quality Requirements 的编号规则说明
-- [ ] T018 [US1] 在 .specify/templates/spec-template.md 增加“禁止实现细节”校验提示（FR-003 对齐）
-- [ ] T019 [US1] 在 .specify/scripts/bash/validate-spec-output.sh 增加禁用词扫描与失败退出码
-- [ ] T020 [US1] 在 specs/001-functional-spec-standard/quickstart.md 补充 US1 最小输入示例与通过标准
+- [x] T015 [US1] 在 .github/prompts/speckit.specify.prompt.md 增加最小输入映射规则（项目名/背景/目标用户/核心流程）
+- [x] T016 [US1] 在 .specify/templates/spec-template.md 实现 User Story 与 Acceptance Scenarios 的固定输出骨架
+- [x] T017 [US1] 在 .specify/templates/spec-template.md 实现 Functional Requirements 与 Quality Requirements 的编号规则说明
+- [x] T018 [US1] 在 .specify/templates/spec-template.md 增加“禁止实现细节”校验提示（FR-003 对齐）
+- [x] T019 [US1] 在 .specify/scripts/bash/validate-spec-output.sh 增加禁用词扫描与失败退出码
+- [x] T020 [US1] 在 specs/001-functional-spec-standard/quickstart.md 补充 US1 最小输入示例与通过标准
 
 **Checkpoint**: User Story 1 可独立生成并验证规范（MVP）
 

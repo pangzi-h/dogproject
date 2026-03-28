@@ -132,6 +132,30 @@ if $REQUIRE_TASKS && [[ ! -f "$TASKS" ]]; then
     exit 1
 fi
 
+# For tasks flow, ensure design artifacts are present.
+if $INCLUDE_TASKS; then
+    if [[ ! -f "$RESEARCH" ]]; then
+        echo "ERROR: research.md not found in $FEATURE_DIR" >&2
+        echo "Run /speckit.plan first to generate design artifacts." >&2
+        exit 1
+    fi
+    if [[ ! -f "$DATA_MODEL" ]]; then
+        echo "ERROR: data-model.md not found in $FEATURE_DIR" >&2
+        echo "Run /speckit.plan first to generate design artifacts." >&2
+        exit 1
+    fi
+    if [[ ! -d "$CONTRACTS_DIR" ]] || [[ -z "$(ls -A "$CONTRACTS_DIR" 2>/dev/null)" ]]; then
+        echo "ERROR: contracts/ not found or empty in $FEATURE_DIR" >&2
+        echo "Run /speckit.plan first to generate design artifacts." >&2
+        exit 1
+    fi
+    if [[ ! -f "$QUICKSTART" ]]; then
+        echo "ERROR: quickstart.md not found in $FEATURE_DIR" >&2
+        echo "Run /speckit.plan first to generate design artifacts." >&2
+        exit 1
+    fi
+fi
+
 # Build list of available documents
 docs=()
 

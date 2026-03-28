@@ -5,6 +5,25 @@
 **Status**: Draft  
 **Input**: User description: "$ARGUMENTS"
 
+## Fixed Section Anchors *(do not reorder)*
+
+Follow this exact order when producing `spec.md`:
+
+1. Feature Header (this metadata block)
+2. User Scenarios & Testing
+3. Requirements
+  3a. Functional Requirements
+  3b. Quality and Verification Requirements
+  3c. Key Entities
+4. Success Criteria
+5. Assumptions
+
+What/Why writing guardrails:
+
+- Describe business intent and user value; avoid implementation details.
+- Do not mention languages, frameworks, protocols, databases, or endpoint styles.
+- If critical input is missing, keep output structured and mark the gap explicitly.
+
 ## User Scenarios & Testing *(mandatory)*
 
 <!--
@@ -84,13 +103,26 @@
 
 ### Functional Requirements
 
+<!--
+  Numbering rules:
+  - Start at FR-001 and increment sequentially with no gaps.
+  - Keep statements behavior-focused (What/Why), not implementation-focused (How).
+  - Avoid implementation terms (language/framework/database/protocol/endpoints).
+-->
+
 - **FR-001**: System MUST [specific capability, e.g., "allow users to create accounts"]
-- **FR-002**: System MUST [specific capability, e.g., "validate email addresses"]  
+- **FR-002**: System MUST [specific capability, e.g., "validate email addresses"]
 - **FR-003**: Users MUST be able to [key interaction, e.g., "reset their password"]
 - **FR-004**: System MUST [data requirement, e.g., "persist user preferences"]
 - **FR-005**: System MUST [behavior, e.g., "log all security events"]
 
 ### Quality and Verification Requirements *(mandatory)*
+
+<!--
+  Numbering rules:
+  - Start at QR-001 and increment sequentially with no gaps.
+  - Include measurable thresholds where possible.
+-->
 
 - **QR-001**: Changes MUST satisfy project code quality gates (formatting, linting, static checks).
 - **QR-002**: Feature MUST define required test coverage scope (unit/integration/regression) for modified behavior.
