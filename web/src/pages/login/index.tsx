@@ -2,9 +2,11 @@ import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useCallback, useState } from 'react'
-import { MessageCircle, PawPrint } from 'lucide-react'
+import { Eye, EyeOff, PawPrint } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
 import {
   Form,
   FormControl,
@@ -12,172 +14,190 @@ import {
   FormItem,
   FormMessage,
 } from '@/components/ui/form'
+import { AnimatedCharacters } from '@/components/ui/animated-characters'
 import { cn } from '@/lib/utils'
 
 const loginSchema = z.object({
-  phone: z
-    .string()
-    .min(1, '请输入手机号')
-    .regex(/^1[3-9]\d{9}$/, '请输入有效的手机号'),
+  username: z.string().min(1, '请输入账号'),
   password: z.string().min(6, '密码不能少于 6 位'),
 })
 
 type LoginFormValues = z.infer<typeof loginSchema>
 
 export default function LoginPage() {
-  const [phoneFormVisible, setPhoneFormVisible] = useState(false)
-  const [agreed, setAgreed] = useState(false)
+  const navigate = useNavigate()
+  const [showPassword, setShowPassword] = useState(false)
+  const [isTyping, setIsTyping] = useState(false)
+  const [remember, setRemember] = useState(false)
+  const [error, setError] = useState('')
+  const [isLoading, setIsLoading] = useState(false)
 
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
-    defaultValues: { phone: '', password: '' },
+    defaultValues: { username: '', password: '' },
   })
 
-  const onWechatLogin = useCallback(() => {
-    if (!agreed) {
-      alert('请先阅读并同意服务条款和隐私政策')
-      return
-    }
-    // TODO: 调用微信授权登录接口 POST /api/v1/auth/login
-    console.log('微信授权登录')
-  }, [agreed])
+  const password = form.watch('password')
 
-  const onPhoneLogin = useCallback(
-    (values: LoginFormValues) => {
-      if (!agreed) {
-        alert('请先阅读并同意服务条款和隐私政策')
-        return
+  const onSubmit = useCallback(
+    async (values: LoginFormValues) => {
+      setIsLoading(true)
+      setError('')
+      try {
+        // TODO: 调用管理员登录接口 POST /api/v1/admin/auth/login
+        console.log('管理员登录', values, { remember })
+        navigate('/')
+      } catch (err: unknown) {
+        const msg = err instanceof Error ? err.message : '账号或密码错误，请重试'
+        setError(msg)
+      } finally {
+        setIsLoading(false)
       }
-      // TODO: 调用手机号登录接口
-      console.log('手机号登录', values)
     },
-    [agreed],
+    [navigate, remember],
   )
 
   return (
-    <div className="flex flex-col min-h-screen">
-      {/* 顶部品牌区 */}
-      <div className="flex-1 flex flex-col items-center justify-center px-8 pt-16 pb-8">
-        <div className="flex flex-col items-center gap-4 mb-12">
-          <div className="w-20 h-20 rounded-2xl bg-primary/10 flex items-center justify-center">
-            <PawPrint className="w-10 h-10 text-primary" strokeWidth={1.5} />
+    <div className="min-h-screen max-h-screen overflow-hidden grid lg:grid-cols-2">
+      {/* ── Left: animated characters ── */}
+      <div className="relative hidden lg:flex flex-col justify-between bg-gradient-to-br from-gray-400 via-gray-500 to-gray-600 p-12 text-white overflow-hidden">
+        {/* Logo */}
+        <div className="relative z-20 flex items-center gap-2 text-lg font-semibold">
+          <div className="bg-white/10 backdrop-blur-sm p-1.5 rounded-lg">
+            <PawPrint className="h-5 w-5" />
           </div>
-          <div className="text-center">
-            <h1 className="text-2xl font-bold text-foreground tracking-tight">
-              边牧寄养
-            </h1>
-            <p className="text-sm text-muted-foreground mt-1">
-              专业宠物寄养平台
-            </p>
-          </div>
+          <span>边牧寄养 · 管理后台</span>
         </div>
 
-        {/* 登录操作区 */}
-        <div className="w-full max-w-sm space-y-4">
-          {/* 微信授权登录 */}
-          <Button
-            className="w-full h-12 gap-2 bg-[#07c160] hover:bg-[#06ad56] text-white text-base font-medium"
-            onClick={onWechatLogin}
-          >
-            <MessageCircle className="w-5 h-5" />
-            微信授权快速登录
-          </Button>
-
-          {/* 分隔线 */}
-          <div className="flex items-center gap-3">
-            <div className="flex-1 h-px bg-border" />
-            <span className="text-xs text-muted-foreground">或</span>
-            <div className="flex-1 h-px bg-border" />
-          </div>
-
-          {/* 手机号登录入口 */}
-          {!phoneFormVisible ? (
-            <Button
-              variant="outline"
-              className="w-full h-12 text-base"
-              onClick={() => setPhoneFormVisible(true)}
-            >
-              手机号登录
-            </Button>
-          ) : (
-            <Form {...form}>
-              <form
-                onSubmit={form.handleSubmit(onPhoneLogin)}
-                className="space-y-3"
-              >
-                <FormField
-                  control={form.control}
-                  name="phone"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <Input
-                          placeholder="请输入手机号"
-                          type="tel"
-                          className="h-12 text-base"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <FormField
-                  control={form.control}
-                  name="password"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormControl>
-                        <Input
-                          placeholder="请输入密码"
-                          type="password"
-                          className="h-12 text-base"
-                          {...field}
-                        />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                <Button
-                  type="submit"
-                  className="w-full h-12 text-base"
-                  disabled={form.formState.isSubmitting}
-                >
-                  登 录
-                </Button>
-              </form>
-            </Form>
-          )}
+        {/* Animated characters */}
+        <div className="relative z-20 flex items-end justify-center h-[500px]">
+          <AnimatedCharacters
+            isTyping={isTyping}
+            showPassword={showPassword}
+            passwordLength={password.length}
+          />
         </div>
+
+        {/* Bottom links */}
+        <div className="relative z-20 flex items-center gap-8 text-sm text-gray-200">
+          <a href="#" className="hover:text-white transition-colors">隐私政策</a>
+          <a href="#" className="hover:text-white transition-colors">服务条款</a>
+        </div>
+
+        {/* Decorative elements */}
+        <div className="absolute inset-0 bg-[size:20px_20px] [background-image:linear-gradient(to_right,rgba(255,255,255,0.05)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.05)_1px,transparent_1px)]" />
+        <div className="absolute top-1/4 right-1/4 size-64 bg-gray-400/20 rounded-full blur-3xl" />
+        <div className="absolute bottom-1/4 left-1/4 size-96 bg-gray-300/20 rounded-full blur-3xl" />
       </div>
 
-      {/* 底部协议 */}
-      <div className="px-6 pb-10 flex flex-col items-center gap-2">
-        <label className="flex items-center gap-2 cursor-pointer select-none">
-          <input
-            type="checkbox"
-            checked={agreed}
-            onChange={(e) => setAgreed(e.target.checked)}
-            className="w-4 h-4 rounded accent-primary"
-          />
-          <span className="text-xs text-muted-foreground">
-            已阅读并同意{' '}
-            <button
-              type="button"
-              className={cn('text-primary underline underline-offset-2')}
-            >
-              《服务条款》
-            </button>
-            {' 和 '}
-            <button
-              type="button"
-              className={cn('text-primary underline underline-offset-2')}
-            >
-              《隐私政策》
-            </button>
-          </span>
-        </label>
+      {/* ── Right: login form ── */}
+      <div className="flex items-center justify-center p-8 bg-background">
+        <div className="w-full max-w-[420px]">
+          {/* Mobile logo */}
+          <div className="lg:hidden flex items-center justify-center gap-2 mb-12 text-lg font-semibold">
+            <PawPrint className="h-6 w-6 text-primary" />
+            <span>边牧寄养 · 管理后台</span>
+          </div>
+
+          {/* Header */}
+          <div className="text-center mb-10">
+            <h1 className="text-3xl font-bold tracking-tight mb-2">欢迎回来！</h1>
+            <p className="text-muted-foreground text-sm">请输入您的管理员账号</p>
+          </div>
+
+          {/* Form */}
+          <Form {...form}>
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
+              <FormField
+                control={form.control}
+                name="username"
+                render={({ field }) => (
+                  <FormItem className="space-y-2">
+                    <Label className="text-sm font-medium">账号</Label>
+                    <FormControl>
+                      <Input
+                        placeholder="请输入手机号或账号"
+                        autoComplete="username"
+                        className="h-12 bg-background border-border/60 focus:border-primary"
+                        {...field}
+                        onFocus={() => setIsTyping(true)}
+                        onBlur={() => { setIsTyping(false); field.onBlur() }}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              <FormField
+                control={form.control}
+                name="password"
+                render={({ field }) => (
+                  <FormItem className="space-y-2">
+                    <Label className="text-sm font-medium">密码</Label>
+                    <FormControl>
+                      <div className="relative">
+                        <Input
+                          type={showPassword ? 'text' : 'password'}
+                          placeholder="••••••••"
+                          autoComplete="current-password"
+                          className="h-12 pr-10 bg-background border-border/60 focus:border-primary"
+                          {...field}
+                          onFocus={() => setIsTyping(true)}
+                          onBlur={() => { setIsTyping(false); field.onBlur() }}
+                        />
+                        <button
+                          type="button"
+                          onClick={() => setShowPassword((v) => !v)}
+                          className="absolute right-3 top-1/2 -translate-y-1/2 text-muted-foreground hover:text-foreground transition-colors"
+                        >
+                          {showPassword
+                            ? <EyeOff className="size-5" />
+                            : <Eye className="size-5" />}
+                        </button>
+                      </div>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+
+              {/* Remember me + Forgot password */}
+              <div className="flex items-center justify-between">
+                <label className="flex items-center gap-2 cursor-pointer select-none">
+                  <input
+                    type="checkbox"
+                    checked={remember}
+                    onChange={(e) => setRemember(e.target.checked)}
+                    className="w-4 h-4 rounded accent-primary"
+                  />
+                  <span className="text-sm font-normal text-foreground">记住登录 30 天</span>
+                </label>
+                <button
+                  type="button"
+                  className="text-sm text-primary hover:underline font-medium"
+                >
+                  忘记密码？
+                </button>
+              </div>
+
+              {/* Error */}
+              {error && (
+                <div className="p-3 text-sm text-destructive bg-destructive/10 border border-destructive/30 rounded-lg">
+                  {error}
+                </div>
+              )}
+
+              <Button
+                type="submit"
+                className={cn('w-full h-12 text-base font-medium')}
+                disabled={isLoading}
+              >
+                {isLoading ? '登录中...' : '登 录'}
+              </Button>
+            </form>
+          </Form>
+        </div>
       </div>
     </div>
   )
