@@ -1,6 +1,5 @@
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
-import { zodResolver } from '@hookform/resolvers/zod'
 import { useCallback, useState } from 'react'
 import { Eye, EyeOff, PawPrint } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
@@ -33,7 +32,6 @@ export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false)
 
   const form = useForm<LoginFormValues>({
-    resolver: zodResolver(loginSchema),
     defaultValues: { username: '', password: '' },
   })
 
