@@ -80,8 +80,9 @@ export default function LoginPage() {
 
         {/* Bottom links */}
         <div className="relative z-20 flex items-center gap-8 text-sm text-gray-200">
-          <a href="#" className="hover:text-white transition-colors">隐私政策</a>
-          <a href="#" className="hover:text-white transition-colors">服务条款</a>
+          {/* <a href="#" className="hover:text-white transition-colors">隐私政策</a>
+          <a href="#" className="hover:text-white transition-colors">服务条款</a> */}
+          <a href="#" className="hover:text-white transition-colors">专业宠物寄养管理平台,让每一次寄养都有迹可循</a>
         </div>
 
         {/* Decorative elements */}
