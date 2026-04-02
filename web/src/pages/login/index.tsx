@@ -39,23 +39,21 @@ export default function LoginPage() {
 
   const password = form.watch('password')
 
-  const onSubmit = useCallback(
-    async (values: LoginFormValues) => {
-      setIsLoading(true)
-      setError('')
-      try {
-        // TODO: 调用管理员登录接口 POST /api/v1/admin/auth/login
-        console.log('管理员登录', values, { remember })
-        navigate('/')
-      } catch (err: unknown) {
-        const msg = err instanceof Error ? err.message : '账号或密码错误，请重试'
-        setError(msg)
-      } finally {
-        setIsLoading(false)
-      }
-    },
-    [navigate, remember],
-  )
+  const handleLogin = useCallback(async () => {
+    setIsLoading(true)
+    setError('')
+    try {
+      // TODO: 调用管理员登录接口 POST /api/v1/admin/auth/login
+      // const values = form.getValues()
+      // await loginApi(values)
+      navigate('/')
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : '账号或密码错误，请重试'
+      setError(msg)
+    } finally {
+      setIsLoading(false)
+    }
+  }, [navigate])
 
   return (
     <div className="min-h-screen max-h-screen overflow-hidden grid lg:grid-cols-2">
@@ -108,7 +106,7 @@ export default function LoginPage() {
 
           {/* Form */}
           <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
+            <form className="space-y-5">
               <FormField
                 control={form.control}
                 name="username"
@@ -190,9 +188,10 @@ export default function LoginPage() {
               )}
 
               <Button
-                type="submit"
+                type="button"
                 className={cn('w-full h-12 text-base font-medium')}
                 disabled={isLoading}
+                onClick={handleLogin}
               >
                 {isLoading ? '登录中...' : '登 录'}
               </Button>
