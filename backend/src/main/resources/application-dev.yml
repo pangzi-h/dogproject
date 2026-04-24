@@ -20,3 +20,31 @@ logging:
   level:
     root: info
     com.petboarding: debug
+
+# Aliyun SMS Configuration
+aliyun:
+  sms:
+    accessKeyId: ${ALIYUN_ACCESS_KEY_ID:}
+    accessKeySecret: ${ALIYUN_ACCESS_KEY_SECRET:}
+    signName: ${ALIYUN_SMS_SIGN_NAME:PetBoarding}
+    templateCode: ${ALIYUN_SMS_TEMPLATE_CODE:SMS_xxx}
+  email:
+    accessKeyId: ${ALIYUN_ACCESS_KEY_ID:}
+    accessKeySecret: ${ALIYUN_ACCESS_KEY_SECRET:}
+    accountName: ${ALIYUN_EMAIL_ACCOUNT:no-reply@petboarding.com}
+
+# WeChat Configuration
+wechat:
+  miniprogram:
+    appId: ${WECHAT_MINIPROGRAM_APPID:}
+    appSecret: ${WECHAT_MINIPROGRAM_APPSECRET:}
+  openplatform:
+    appId: ${WECHAT_OPENPLATFORM_APPID:}
+    appSecret: ${WECHAT_OPENPLATFORM_APPSECRET:}
+    redirectUri: ${WECHAT_OPENPLATFORM_REDIRECT_URI:}
+
+# JWT Configuration
+jwt:
+  secret: ${JWT_SECRET:your-256-bit-secret-key-for-development-only}
+  accessTokenExpire: 3600
+  refreshTokenExpire: 604800
